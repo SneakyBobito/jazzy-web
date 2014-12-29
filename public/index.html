@@ -10,12 +10,14 @@
 
     <link rel="stylesheet" type="text/css" href="./vendors/reset.css">
 
-    <link rel="stylesheet" type="text/css" href="./assets/grid.css">
-    <link rel="stylesheet" type="text/css" href="./assets/chords-patterns.css">
     <link rel="stylesheet" type="text/css" href="./font-awesome.css">
     <link rel="stylesheet" type="text/css" href="./vendors/jquery/ui/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="./vendors/jquery/ui/jquery-ui.structure.css">
     <link rel="stylesheet" type="text/css" href="./vendors/jquery/ui/jquery-ui.theme.css">
+    
+    <link rel="stylesheet" type="text/css" href="./assets/dialog.css">
+    <link rel="stylesheet" type="text/css" href="./assets/grid.css">
+    <link rel="stylesheet" type="text/css" href="./assets/chords-patterns.css">
 
     <link href='http://fonts.googleapis.com/css?family=Yellowtail|Kaushan+Script|Damion' rel='stylesheet' type='text/css'>
 
@@ -26,8 +28,8 @@
 
     <script src="./vendors/teoria.js" ></script>
     <script src="vendors/Jazzy.js" ></script>
-    <script src="assets/init.js" ></script>
     <script src="assets/app.js" ></script>
+    <script src="assets/init.js" ></script>
 
 </head>
 <body>
@@ -48,11 +50,8 @@
 </div>
 
 
-<div class="row">
 
-    <div class="large-9 columns" role="content">
-        <div id="grid-wrapper"></div>
-    </div>
+    <div id="grid-wrapper"></div>
 
 
     <aside class="large-3 columns">
@@ -64,16 +63,14 @@
         </div>
     </aside>
 
-</div>
-
-
+    
 
 <script id="grid" type="text/html">
 
     <div class="jz-grid">
         <ul class="jz-line-list">
             {{#lines}}
-            <li class="jz-line-li cf">{{> line}}</li>
+            <li class="jz-line-li cf" coordinate={{ coordinateStr }} >{{> line}}</li>
             {{/lines}}
         </ul>
     </div>
@@ -91,7 +88,7 @@
     <div class="jz-line">
         <ul class="jz-cell-list">
             {{#cells}}
-            <li class="jz-cell-li">{{> cell}}</li>
+            <li class="jz-cell-li" coordinate={{ coordinateStr }}>{{> cell}}</li>
             {{/cells}}
         </ul>
     </div>
@@ -104,7 +101,7 @@
     <div class="jz-cell">
         <ul class="jz-chord-list jz-chord-count-{{pattern}}">
             {{#chords}}
-            <li class="jz-chord-li">{{> chord}}</li>
+            <li class="jz-chord-li" coordinate={{ coordinateStr }}>{{> chord}}</li>
             {{/chords}}
             {{^chords}}
             <li class="jz-chord-li"><div class="jz-chord">%</div></li>
@@ -123,8 +120,35 @@
         </div>
     </div>
 
+</script>
+
+
+<script id="chordDialog" type="text/html">
+
+    <div class="title">Edit Chord</div>
+    
+    <form>
+    
+        <label>Chord Name</label>
+        <input class="chord-name" type="text" name="chord" value="{{chord.name}}" />
+        
+        <button>Ok</button>
+    
+    </form>
 
 </script>
+
+
+<div id="dialog-wrapper">
+    
+    <div class="dialog-background"></div>
+    <div class="dialog-window-wrapper">
+        
+        <div class="dialog-window"></div>
+        
+    </div>
+    
+</div>
 
 </body>
 </html>

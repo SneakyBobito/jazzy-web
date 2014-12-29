@@ -148,12 +148,13 @@ $(function(){
 
     var grid = Jazzy.createEntity("grid",gridJson);
 
-    Jazzy.Entity.Chord.prototype.chordTemplate = function(){
-        return this.pattern == "repeat" ? "%" : this.chord.name;
-    };
+    var app = new JzApp();
 
-    var output = ich.grid( grid );
+    app.start(grid,"#grid-wrapper");
+    
+    $(".dialog-background").click(function(){
+        $(this).parent().removeClass("active");
+    });
 
-    $("#grid-wrapper").append(output);
 
 });

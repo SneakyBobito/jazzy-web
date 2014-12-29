@@ -55,3 +55,21 @@ table {
     overflow: hidden;
 }
 .cf:after {clear: both;}
+
+
+.col {
+    float:left;
+}
+
+.col.right{
+    float:right;
+}
+.row:before, .row:after {
+	content: " ";
+        width:0;
+        height:0;
+	display: table;
+}
+.row:after {
+	clear: both;
+}

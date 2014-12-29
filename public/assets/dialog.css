@@ -1,0 +1,59 @@
+#dialog-wrapper{
+    display:none;
+    position: fixed;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+}
+
+#dialog-wrapper.active{
+    display: block;
+}
+
+
+.dialog-background{
+    position: absolute;
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    background: #000;
+    opacity: 0.5;
+    z-index: 999;
+}
+
+
+
+
+#dialog-wrapper:before,
+#dialog-wrapper:after{
+    content : " ";
+    display: inline-block;
+    height:100%;
+    width:0;
+    vertical-align: middle;
+
+}
+
+
+.dialog-window-wrapper{
+    position: relative;
+    z-index: 1000;
+    display: inline-block;
+    vertical-align: middle;
+    
+    left:50%;
+    
+
+    text-align: center;
+}
+
+.dialog-window{
+    background: white;
+    left:-50%;
+    position: relative;
+    
+    padding:4px;
+    
+}
