@@ -1,0 +1,1 @@
+sass --watch public/assets/chords-patterns.scss:public/assets/chords-patterns.css --style compressed

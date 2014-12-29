@@ -1,0 +1,130 @@
+
+<!doctype html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Jazzy builder</title>
+    <meta name="description" content="Grid builder"/>
+
+    <link rel="stylesheet" type="text/css" href="./vendors/reset.css">
+
+    <link rel="stylesheet" type="text/css" href="./assets/grid.css">
+    <link rel="stylesheet" type="text/css" href="./assets/chords-patterns.css">
+    <link rel="stylesheet" type="text/css" href="./font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="./vendors/jquery/ui/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="./vendors/jquery/ui/jquery-ui.structure.css">
+    <link rel="stylesheet" type="text/css" href="./vendors/jquery/ui/jquery-ui.theme.css">
+
+    <link href='http://fonts.googleapis.com/css?family=Yellowtail|Kaushan+Script|Damion' rel='stylesheet' type='text/css'>
+
+    <script src="./vendors/jquery/jquery.min.js" ></script>
+    <script src="./vendors/jquery/ui/jquery-ui.js" ></script>
+    <script src="./vendors/mustache.js" ></script>
+    <script src="./vendors/icanhaz-nomustache.js" ></script>
+
+    <script src="./vendors/teoria.js" ></script>
+    <script src="vendors/Jazzy.js" ></script>
+    <script src="assets/init.js" ></script>
+    <script src="assets/app.js" ></script>
+
+</head>
+<body>
+
+<div class="row">
+    <div class="large-12 columns">
+        <div class="nav-bar right">
+            <ul class="button-group">
+                <li><a href="#" class="button">Link 1</a></li>
+                <li><a href="#" class="button">Link 2</a></li>
+                <li><a href="#" class="button">Link 3</a></li>
+                <li><a href="#" class="button">Link 4</a></li>
+            </ul>
+        </div>
+        <h1>Jazzy <small>Grid builder</small></h1>
+        <hr/>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="large-9 columns" role="content">
+        <div id="grid-wrapper"></div>
+    </div>
+
+
+    <aside class="large-3 columns">
+
+        <div class="panel">
+            <h5>Toolbox</h5>
+            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow.</p>
+            <a href="#">Read More &rarr;</a>
+        </div>
+    </aside>
+
+</div>
+
+
+
+<script id="grid" type="text/html">
+
+    <div class="jz-grid">
+        <ul class="jz-line-list">
+            {{#lines}}
+            <li class="jz-line-li cf">{{> line}}</li>
+            {{/lines}}
+        </ul>
+    </div>
+
+</script>
+
+<script id="line" type="text/html">
+
+    {{#section}}
+    <div class="jz-section">
+        {{ . }}
+    </div>
+    {{/section}}
+
+    <div class="jz-line">
+        <ul class="jz-cell-list">
+            {{#cells}}
+            <li class="jz-cell-li">{{> cell}}</li>
+            {{/cells}}
+        </ul>
+    </div>
+
+</script>
+
+
+<script id="cell" type="text/html">
+
+    <div class="jz-cell">
+        <ul class="jz-chord-list jz-chord-count-{{pattern}}">
+            {{#chords}}
+            <li class="jz-chord-li">{{> chord}}</li>
+            {{/chords}}
+            {{^chords}}
+            <li class="jz-chord-li"><div class="jz-chord">%</div></li>
+            {{/chords}}
+        </ul>
+    </div>
+
+</script>
+
+<script id="chord" type="text/html">
+
+    <div class="jz-chord">
+        <span class="jz-chord-name">{{chord.name}}</span>
+        <div class="jz-chord-edit">
+            <i class="fa fa-pencil-square"></i>
+        </div>
+    </div>
+
+
+</script>
+
+</body>
+</html>

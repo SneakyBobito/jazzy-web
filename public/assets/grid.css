@@ -1,0 +1,41 @@
+.jz-grid{
+    font-family: 'Kaushan Script', cursive;
+}
+
+
+.jz-grid  ul {
+    margin:0;
+}
+
+.jz-line-li{
+    margin-bottom: 4px;
+}
+
+.jz-cell-list{
+    height: 80px;
+}
+
+.jz-cell-li{
+
+    display : block;
+    float   : left;
+    height  : 80px;
+    width   : 80px;
+
+    border-color: #111;
+    border-style: solid;
+    border-left-width: 1px;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+    margin: 0;
+}
+
+.jz-cell{
+    height:100%;
+}
+
+.jz-cell-li:last-child{
+    border-right-width: 1px;
+}
+
+

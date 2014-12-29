@@ -1,0 +1,52 @@
+{
+    "lines" : [
+        {
+            "cells" : [
+                {
+                    "chords" : [
+                        {"chord" : "A"}
+                    ]
+                },
+                {
+                    "chords" : [
+                        {"chord" : "A"}
+                    ]
+                },
+                {
+                    "chords" : [
+                        {"chord" : "Bm"}
+                    ]
+                },
+                {
+                    "chords" : [
+                        {"chord" : "E7"}
+                    ]
+                }
+            ]
+        },
+        {
+            "cells" : [
+                {
+                    "chords" : [
+                        {"chord" : "Am"}
+                    ]
+                },
+                {
+                    "chords" : [
+                        {"chord" : "Am"}
+                    ]
+                },
+                {
+                    "chords" : [
+                        {"chord" : "Cm"}
+                    ]
+                },
+                {
+                    "chords" : [
+                        {"chord" : "G#"}
+                    ]
+                }
+            ]
+        }
+    ]
+}
