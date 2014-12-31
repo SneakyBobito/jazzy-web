@@ -8,16 +8,17 @@
     <title>Jazzy builder</title>
     <meta name="description" content="Grid builder"/>
 
-    <link rel="stylesheet" type="text/css" href="./vendors/reset.css">
+    <link rel="stylesheet" type="text/css" href="./assets/global.css">
 
     <link rel="stylesheet" type="text/css" href="./font-awesome.css">
     <link rel="stylesheet" type="text/css" href="./vendors/jquery/ui/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="./vendors/jquery/ui/jquery-ui.structure.css">
     <link rel="stylesheet" type="text/css" href="./vendors/jquery/ui/jquery-ui.theme.css">
-    
+
     <link rel="stylesheet" type="text/css" href="./assets/dialog.css">
     <link rel="stylesheet" type="text/css" href="./assets/grid.css">
     <link rel="stylesheet" type="text/css" href="./assets/chords-patterns.css">
+    <link rel="stylesheet" type="text/css" href="./assets/context-menu.css">
 
     <link href='http://fonts.googleapis.com/css?family=Yellowtail|Kaushan+Script|Damion' rel='stylesheet' type='text/css'>
 
@@ -29,6 +30,7 @@
     <script src="./vendors/teoria.js" ></script>
     <script src="vendors/Jazzy.js" ></script>
     <script src="assets/app.js" ></script>
+    <script src="assets/JzContext.js" ></script>
     <script src="assets/init.js" ></script>
 
 </head>
@@ -63,7 +65,7 @@
         </div>
     </aside>
 
-    
+
 
 <script id="grid" type="text/html">
 
@@ -123,31 +125,53 @@
 </script>
 
 
-<script id="chordDialog" type="text/html">
+<script id="contextMenu" type="text/html">
 
-    <div class="title">Edit Chord</div>
-    
-    <form>
-    
-        <label>Chord Name</label>
-        <input class="chord-name" type="text" name="chord" value="{{chord.name}}" />
-        
-        <button>Ok</button>
-    
-    </form>
+    <div class="context-menu-wrapper">
+
+        <ul>
+
+            <li class="chord-section title">Chord</li>
+            <li class="chord-section chord-editor">
+                <form>
+                    <label>Chord Name</label>
+                    <input class="chord-name" type="text" name="chord" value="{{chord.chord.name}}" />
+
+                    <button>Ok</button>
+                </form>
+            </li>
+
+            <li class="cell-section separation"></li>
+            <li class="cell-section title">Cell</li>
+            <li class="cell-section cell-pattern">
+              Pattern
+
+              <ul class="pattern-list cf">
+                <li><div data-pattern="4" class="pattern-ico pattern-4"></div></li>
+                <li><div data-pattern="2-2" class="pattern-ico pattern-2-2"></div></li>
+                <li><div data-pattern="2-1-1" class="pattern-ico pattern-2-1-1"></div></li>
+              </ul>
+
+            </li>
+            <li class="cell-section cell-delete button">
+              Remove
+            </li>
+
+        </ul>
+
+    </div>
 
 </script>
 
-
 <div id="dialog-wrapper">
-    
+
     <div class="dialog-background"></div>
     <div class="dialog-window-wrapper">
-        
+
         <div class="dialog-window"></div>
-        
+
     </div>
-    
+
 </div>
 
 </body>
