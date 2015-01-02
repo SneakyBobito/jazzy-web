@@ -105,7 +105,7 @@ JzApp.prototype.bind = function(section){
     var self = this;
 
     $(".jz-chord-li",section).click(function(e){
-        var chord = self.getChordFromElement($(this));
+        var chord = self.getEntityFromElement($(this));
 
         var $cell = $(this).closest(".jz-cell-li");
 
@@ -124,9 +124,86 @@ JzApp.prototype.bind = function(section){
     });
 
 
+    //////////////////
+    // LINE SORTABLE
+    //
+    $(".jz-line-list").sortable({
+        "handle" : ".move-handler",
+        "update"      : function(e,ui){
+
+
+            var newIndex = ui.item.index();
+            var line = self.getEntityFromElement(ui.item);
+            var grid = line.parent("grid");
+            var oldIndex = grid.lines.indexOf(line);
+
+                var handler = function(){
+                    grid.addLine(line,newIndex);
+                    self.redraw();
+                }
+
+                // execute
+                handler();
+
+                // history
+                self.JzHistory.add(
+                    function(){
+                        grid.addLine(cell,oldIndex);
+                        self.redraw();
+                    },
+                    handler
+                );
+
+        }
+    });
+    $(".jz-line-list").disableSelection();
+
+    //////////////////
+    // CELL SORTABLE
+    //
+    $(".jz-cell-list").sortable({
+        "connectWith" : ".jz-cell-list",
+        "placeholder" : "jz-cell-li ui-state-highlight",
+        "update"      : function(e,ui){
+
+            // dont trigger update twice with connected list
+            // view http://stackoverflow.com/questions/3492828/jquery-sortable-connectwith-calls-the-update-method-twice
+            if (this === ui.item.parent()[0]) {
+
+                var newIndex = ui.item.index();
+                var new$Parent = ui.item.closest(".jz-line-li");
+                var line = self.getEntityFromElement(new$Parent);
+                var cell = self.getEntityFromElement(ui.item);
+                var oldLine = cell.parent("line");
+                var oldIndex = oldLine.cells.indexOf(cell);
+
+                var handler = function(){
+                    line.addCell(cell,newIndex);
+                    self.redraw();
+                }
+
+                // execute
+                handler();
+
+                // history
+                self.JzHistory.add(
+                    function(){
+                        oldLine.addCell(cell,oldIndex);
+                        self.redraw();
+                    },
+                    handler
+                );
+
+
+            }
+        }
+    });
+    $(".jz-cell-list").disableSelection();
+
+
 };
 
-JzApp.prototype.getChordFromElement = function($el){
+JzApp.prototype.getEntityFromElement = function($el){
 
     var c = $el.attr("coordinate").split('-');
 

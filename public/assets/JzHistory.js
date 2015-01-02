@@ -21,7 +21,7 @@ JzHistory.prototype = {
         this.redoStack = [];
 
         if(this.stack.length > this.maxStack){
-            // remove begining
+            // todo : remove begining
         }
 
     },

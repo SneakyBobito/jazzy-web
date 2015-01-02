@@ -275,7 +275,7 @@ Jazzy.Entity.prototype = {
         }else
             e = Jazzy.createEntity(ElementName,data);
 
-        if(index)
+        if(index>0 || index === 0)
             this[arrayPropertyName].splice(index,0,e);
         else
             this[arrayPropertyName].push(e);

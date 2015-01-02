@@ -74,7 +74,7 @@
     <div class="jz-grid">
         <ul class="jz-line-list">
             {{#lines}}
-            <li class="jz-line-li cf" coordinate={{ coordinateStr }} >{{> line}}</li>
+            <li class="jz-line-li" coordinate={{ coordinateStr }} >{{> line}}</li>
             {{/lines}}
         </ul>
     </div>
@@ -83,13 +83,16 @@
 
 <script id="line" type="text/html">
 
+
     {{#section}}
     <div class="jz-section">
         {{ . }}
     </div>
     {{/section}}
 
-    <div class="jz-line">
+    <div class="jz-line cf">
+
+        <div class="move-handler"></div>
         <ul class="jz-cell-list">
             {{#cells}}
             <li class="jz-cell-li" coordinate={{ coordinateStr }}>{{> cell}}</li>
