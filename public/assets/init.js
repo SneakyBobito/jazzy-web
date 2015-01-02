@@ -151,9 +151,18 @@ $(function(){
     var app = new JzApp();
 
     app.start(grid,"#grid-wrapper");
-    
+
     $(".dialog-background").click(function(){
         $(this).parent().removeClass("active");
+    });
+
+    $("#undo").click(function(){
+        app.JzHistory.undo();
+
+    });
+
+    $("#redo").click(function(){
+        app.JzHistory.redo();
     });
 
 

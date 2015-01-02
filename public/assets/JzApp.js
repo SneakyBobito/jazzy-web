@@ -70,11 +70,7 @@ JzApp.prototype.start = function(grid,wrapper){
     this.grid = grid;
     this.$wrapper = $(wrapper);
 
-    var output = ich.grid( this.grid );
-
-    this.$wrapper.append(output);
-
-    this.bind(this.$wrapper);
+    this.redraw(grid);
 
     grid.bind("chordUpdated",function(c){
         var coord = c.coordinate();
@@ -84,6 +80,20 @@ JzApp.prototype.start = function(grid,wrapper){
     });
 
     this.JzContext = new JzContext(this,"contextMenu");
+    this.JzHistory = new JzHistory();
+
+};
+
+JzApp.prototype.redraw = function(entity){
+
+    if(!entity)
+        entity = this.grid;
+
+    if(entity instanceof Jazzy.Entity.Grid){
+        var output = ich.grid(entity);
+        this.$wrapper.html(output);
+        this.bind(this.$wrapper);
+    }
 
 };
 
@@ -97,14 +107,20 @@ JzApp.prototype.bind = function(section){
     $(".jz-chord-li",section).click(function(e){
         var chord = self.getChordFromElement($(this));
 
-        var click = {x:e.pageX,y:e.pageY};
+        var $cell = $(this).closest(".jz-cell-li");
 
-        self.JzContext.show(click,{
+        var cellOffset = $cell.offset();
+
+        var windowCoordinates = {x : cellOffset.left, y : cellOffset.top + $cell.height() + 10};
+        // todo : verify coordinates
+
+        self.JzContext.show(windowCoordinates,{
             grid : chord.parent("grid"),
             line : chord.parent("line"),
             cell : chord.parent("cell"),
             chord: chord
         });
+
     });
 
 
@@ -115,5 +131,11 @@ JzApp.prototype.getChordFromElement = function($el){
     var c = $el.attr("coordinate").split('-');
 
     return this.grid.get(c[0],c[1],c[2]);
+
+};
+
+JzApp.prototype.getElementFromEntity = function(entity){
+
+    return $("[coordinate=" + entity.coordinateStr() + "]",this.$wrapper);
 
 };

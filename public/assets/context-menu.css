@@ -1,6 +1,6 @@
 .context-menu-wrapper{
 	position: absolute;
-	width:300px;
+	width:200px;
 
 	background: white;
 	border: 1px solid rgba(0, 0, 0, 0.2);
@@ -8,20 +8,6 @@
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
 	padding: 6px 0;
-}
-
-.context-menu-wrapper:before{
-
-	position: absolute;
-	top: -7px;
-	left: 9px;
-	display: inline-block;
-	border-right: 7px solid transparent;
-	border-bottom: 7px solid #ccc;
-	border-left: 7px solid transparent;
-	border-bottom-color: rgba(0, 0, 0, 0.2);
-	content: '';
-
 }
 
 .context-menu-wrapper>ul{
@@ -84,6 +70,14 @@
 	background-image:url("./chord-background/2-1-1.svg");
 }
 
+.context-menu-wrapper .pattern-list .pattern-1-1-1-1{
+	background-image:url("./chord-background/1-1-1-1.svg");
+}
+
+.context-menu-wrapper .pattern-list .pattern-1-1-2{
+	background-image:url("./chord-background/1-1-2.svg");
+}
+
 .context-menu-wrapper .pattern-list>li:hover{
 	background-color: #0088cc;
 	background-color: #0081c2;
@@ -96,5 +90,21 @@
 	filter: progid: dximagetransform.microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0077b3', GradientType=0);
 
 	cursor:pointer;
+}
 
+.context-menu-wrapper .chord-editor input{
+	width: 50px;
+}
+
+.context-menu-wrapper .line-section-name input{
+	width: 70px;
+}
+
+.context-menu-wrapper form>label{
+	display:block;
+	margin-bottom:5px;
+}
+
+.context-menu-wrapper form>input{
+	margin-left: 5px;
 }

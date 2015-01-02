@@ -39,3 +39,15 @@
 }
 
 
+
+.jz-cell-li.context-menu-open{
+    border-color:red;
+}
+
+.jz-cell-li.context-menu-open+li{
+    border-left-color:red;
+}
+
+.jz-chord-li.context-menu-open .jz-chord-name{
+    color:red;
+}

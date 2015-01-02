@@ -1,5 +1,5 @@
 
-    
+
     /**
  * @license Copyright (c) 2013-2014 Soufiane Ghzal
  * Code under MIT LICENSE
@@ -49,9 +49,9 @@ Jazzy.error = function(message , url){
     var errorMessage = "Jazzy Error : " + message ;
     if( url !== undefined )
         errorMessage += " More informations at : " + url;
-    
+
     console.log(errorMessage);
-    
+
 };
 
 
@@ -64,47 +64,47 @@ Jazzy.debug = function(item){
 Jazzy.Bindable = function(){};
 
 Jazzy.Bindable.prototype={
-    
+
     bind : function(what,how){
-        
+
         if(!this.bindable_bounds){
             this.bindable_bounds = {};
         }
-        
+
         if(!this.bindable_bounds[what]){
             this.bindable_bounds[what] = [];
         }
-        
+
         this.bindable_bounds[what].push(how);
-        
+
     },
-            
+
     fire : function(what,params,cancelOnFalse){
-        
+
         var cancelOnFalse = cancelOnFalse === undefined ? false : cancelOnFalse;
 
         if(!this.bindable_bounds || !this.bindable_bounds[what]){
             return true;
         }
-        
+
         for(var i = 0 ; i < this.bindable_bounds[what].length ; i++ ){
             var cR = this.bindable_bounds[what][i].apply(this,params);
             if(cancelOnFalse && cR === false){
                 return false;
             }
         }
-        
+
         return true;
-        
+
     }
-    
+
 };
 
 Jazzy.Bindable.extends = function (what){
-    
+
     what.prototype.bind = Jazzy.Bindable.prototype.bind;
     what.prototype.fire = Jazzy.Bindable.prototype.fire;
-    
+
 };/**
  * @class Exception
  */
@@ -116,23 +116,23 @@ Jazzy.EntityName = {};
 Jazzy.Entity.prototype = {
 
     export  : function(){
-        
+
         var exportData = {};
-        
-        
+
+
         for(var i in this.creator._iEntities){
-            
+
             var dataDef = this.creator._iEntities[i];
 
             var self = this;
             var handler;
 
             if( dataDef.isEntity === true ){
-                
+
                 handler = function(data){
                     return data.export();
                 };
-                
+
             }else{
                 if( typeof dataDef.export === "function" ){
                     handler = function(data){
@@ -146,17 +146,17 @@ Jazzy.Entity.prototype = {
             }
 
             var value;
-            
+
             if(dataDef.isArray === true){
                 value = [];
-                for(var i=0;i<self[dataDef.name].length;i++){
-                    value.push(handler(self[dataDef.name][i]));
+                for(var ii=0;ii<self[dataDef.name].length;ii++){
+                    value.push(handler(self[dataDef.name][ii]));
                 }
             }else{
                 value = handler(self[dataDef.name]);
             }
-            
-            exportData[i] = value;
+
+            exportData[dataDef.name] = value;
         }
         return exportData;
     },
@@ -191,13 +191,13 @@ Jazzy.Entity.prototype = {
     },
 
     import : function(data){
-        
+
         for(var i in this.creator._iEntities ){
-            
+
             var dataDef = this.creator._iEntities[i] ;
-            
+
             var value = null;
-            
+
             if( data.hasOwnProperty(dataDef.name) ){
                 value = data[dataDef.name];
             }else{
@@ -205,19 +205,19 @@ Jazzy.Entity.prototype = {
                     value = dataDef.default;
                 }
             }
-            
-            
+
+
             var handler;
             var self = this;
-            
+
             if( dataDef.isEntity === true ){
-                
+
                 if(!dataDef.type){
                     Jazzy.error("No type in dataDef. Type is required for import : ");
                     Jazzy.debug(dataDef);
                     continue;
                 }
-                
+
                 handler = function(value){
                     var e = Jazzy.createEntity(dataDef.type,value);
 
@@ -227,7 +227,7 @@ Jazzy.Entity.prototype = {
 
                     return e;
                 };
-                
+
             }else{
                 if( typeof dataDef.import === "function" ){
                     handler = function(value){
@@ -252,11 +252,11 @@ Jazzy.Entity.prototype = {
             }else{
                 this[dataDef.name] = handler(value);
             }
-            
+
             this.afterImport();
-            
+
         }
-        
+
     },
 
 
@@ -301,7 +301,7 @@ Jazzy.Entity.prototype = {
         return null;
 
     }
-  
+
 };
 
 Jazzy.Entity.extends = function (what,entities){
@@ -316,19 +316,19 @@ Jazzy.Entity.extends = function (what,entities){
     Jazzy.Bindable.extends(what);
 
     what._iEntities = {};
-    
+
     for(var i = 0 ; i < entities.length ; i++){
-        
+
         var e = Jazzy.Entity.__parseDataDef(entities[i]);
-        
+
         if(!e.name){
             Jazzy.error("Entity Data has no name");
             Jazzy.debug(e);
         }
-        
+
         what._iEntities[e.name] = e;
     }
-    
+
 };
 
 Jazzy.Entity.registerName = function( hName , entity ){
@@ -337,24 +337,24 @@ Jazzy.Entity.registerName = function( hName , entity ){
 
 
 Jazzy.createEntity = function(name,data){
-    
+
     var e = new Jazzy.EntityName[name];
-    
+
     e.creator = Jazzy.EntityName[name];
 
     e._iParent = {};
-    
+
     if(data){
         e.import(data);
     }
-    
+
     return e;
 };
 
 Jazzy.Entity.__parseDataDef = function(dataDef){
-    
+
     var i = {},p;
-    
+
     if(typeof dataDef === "string"){
         p = {"name" : dataDef};
     }else if(typeof dataDef === "object" ){
@@ -363,9 +363,9 @@ Jazzy.Entity.__parseDataDef = function(dataDef){
         Jazzy.error("Bad data definition");
         Jazzy.debug(dataDef);
     }
-        
+
     Jazzy.applyParams(i,p,{
-         
+
         name        : undefined,
         import      : null,
         export      : null,
@@ -374,11 +374,11 @@ Jazzy.Entity.__parseDataDef = function(dataDef){
         isArray     : false,
         type        : undefined,
         parentName  : undefined
-        
+
     });
-    
+
     return i;
-    
+
 };Jazzy.Entity.Chord = function(){};
 
 Jazzy.Entity.Chord.prototype = {
@@ -414,27 +414,27 @@ Jazzy.Entity.Chord.prototype = {
 
 
     },
-            
+
     coordinate : function(){
 
         var p = this.parent();
-        
+
         var i = p.chords.indexOf(this);
-        
+
         var c = p.coordinate();
         c.push(i);
         return c;
-        
+
     }
 
 };
 
 Jazzy.Entity.extends(Jazzy.Entity.Chord,[
-    
+
     {
         "name"   : "chord",
         "export" : function(v){
-            return  v.name();
+            return  v.name;
         },
         "import" : function(v,d){
             return new teoria.chord(v);
@@ -460,15 +460,15 @@ Jazzy.Entity.Cell.prototype = {
     },
 
     coordinate : function(){
-        
+
         var p = this.parent();
-        
+
         var i = p.cells.indexOf(this);
-        
+
         var c = p.coordinate();
         c.push(i);
         return c;
-        
+
     },
 
     addChord : function(data,index){
@@ -589,15 +589,15 @@ Jazzy.Entity.Line.prototype = {
             return cell.get(ichord);
 
     },
-            
+
     coordinate : function(){
-        
+
         var p = this.parent();
-        
+
         var i = p.lines.indexOf(this);
-        
+
         return [i];
-        
+
     },
 
 

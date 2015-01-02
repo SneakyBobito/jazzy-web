@@ -29,8 +29,9 @@
 
     <script src="./vendors/teoria.js" ></script>
     <script src="vendors/Jazzy.js" ></script>
-    <script src="assets/app.js" ></script>
+    <script src="assets/JzApp.js" ></script>
     <script src="assets/JzContext.js" ></script>
+    <script src="assets/JzHistory.js" ></script>
     <script src="assets/init.js" ></script>
 
 </head>
@@ -51,7 +52,8 @@
     </div>
 </div>
 
-
+<div id="undo">UNDO</div>
+<div id="redo">REDO</div>
 
     <div id="grid-wrapper"></div>
 
@@ -141,7 +143,7 @@
                 </form>
             </li>
 
-            <li class="cell-section separation"></li>
+            <li class="chord-section separation"></li>
             <li class="cell-section title">Cell</li>
             <li class="cell-section cell-pattern">
               Pattern
@@ -150,10 +152,31 @@
                 <li><div data-pattern="4" class="pattern-ico pattern-4"></div></li>
                 <li><div data-pattern="2-2" class="pattern-ico pattern-2-2"></div></li>
                 <li><div data-pattern="2-1-1" class="pattern-ico pattern-2-1-1"></div></li>
+                <li><div data-pattern="1-1-2" class="pattern-ico pattern-1-1-2"></div></li>
+                <li><div data-pattern="1-1-1-1" class="pattern-ico pattern-1-1-1-1"></div></li>
               </ul>
 
             </li>
+            <li class="cell-section cell-duplicate button">
+              Duplicate
+            </li>
             <li class="cell-section cell-delete button">
+              Remove
+            </li>
+
+            <li class="cell-section separation"></li>
+            <li class="line-section title">Line</li>
+            <li class="line-section line-section-name">
+              <form>
+                <label>Section name</label>
+                <input class="section-name" type="text" name="sectionName" value="{{line.section}}" />
+                <button>Ok</button>
+              </form>
+            </li>
+            <li class="line-section line-duplicate button">
+              Duplicate
+            </li>
+            <li class="line-section line-delete button">
               Remove
             </li>
 
