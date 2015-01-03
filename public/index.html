@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="./assets/grid.css">
     <link rel="stylesheet" type="text/css" href="./assets/chords-patterns.css">
     <link rel="stylesheet" type="text/css" href="./assets/context-menu.css">
+    <link rel="stylesheet" type="text/css" href="./assets/print.css">
 
     <link href='http://fonts.googleapis.com/css?family=Yellowtail|Kaushan+Script|Damion' rel='stylesheet' type='text/css'>
 
@@ -29,15 +30,17 @@
 
     <script src="./vendors/teoria.js" ></script>
     <script src="vendors/Jazzy.js" ></script>
+    <script src="assets/misc.js" ></script>
     <script src="assets/JzApp.js" ></script>
     <script src="assets/JzContext.js" ></script>
     <script src="assets/JzHistory.js" ></script>
+    <script src="assets/JzSong.js" ></script>
     <script src="assets/init.js" ></script>
 
 </head>
 <body>
 
-<div class="row">
+<div class="row print-none">
     <div class="large-12 columns">
         <div class="nav-bar right">
             <ul class="button-group">
@@ -52,21 +55,30 @@
     </div>
 </div>
 
-<div id="undo">UNDO</div>
-<div id="redo">REDO</div>
+<div id="toolbox" class="print-none">
+    <div id="undo">UNDO</div>
+    <div id="redo">REDO</div>
+</div>
+
+
 
     <div id="grid-wrapper"></div>
 
 
-    <aside class="large-3 columns">
 
-        <div class="panel">
-            <h5>Toolbox</h5>
-            <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow.</p>
-            <a href="#">Read More &rarr;</a>
+    <script id="song" type="text/html">
+
+        <div class="jz-song">
+
+            <div class="jz-song-title">{{title}}
+
+            {{#grid}}
+            {{> grid}}
+            {{/grid}}
+
         </div>
-    </aside>
 
+    </script>
 
 
 <script id="grid" type="text/html">
@@ -92,7 +104,7 @@
 
     <div class="jz-line cf">
 
-        <div class="move-handler"></div>
+        <div class="move-handler print-none"></div>
         <ul class="jz-cell-list">
             {{#cells}}
             <li class="jz-cell-li" coordinate={{ coordinateStr }}>{{> cell}}</li>

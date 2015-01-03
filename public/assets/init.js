@@ -147,10 +147,13 @@ $(function(){
     };
 
     var grid = Jazzy.createEntity("grid",gridJson);
+    var song = new Jazzy.Entity.Song();
+    song.title = "Sample Song";
+    song.grid  = grid;
 
     var app = new JzApp();
 
-    app.start(grid,"#grid-wrapper");
+    app.start(song,"#grid-wrapper");
 
     $(".dialog-background").click(function(){
         $(this).parent().removeClass("active");

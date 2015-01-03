@@ -1,0 +1,16 @@
+/** PRINT RULES **/
+
+@media print and (color) {
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .print-hide{
+        visibility:hidden;
+    }
+
+    .print-none{
+        display:none;
+    }
+}

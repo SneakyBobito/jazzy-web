@@ -1,78 +1,14 @@
-
-Jazzy.Entity.Chord.prototype.coordinateStr =
-Jazzy.Entity.Line.prototype.coordinateStr =
-Jazzy.Entity.Cell.prototype.coordinateStr =
-    function(){
-        return this.coordinate().join("-");
-    };
-
-
-Jazzy.Entity.Chord.prototype.chordTemplate = function(){
-    return this.pattern == "repeat" ? "%" : this.chord.name;
-};
-
-var formDialog = function(form,data,additional){
-
-    var output = ich[form](data);
-
-    $("#dialog-wrapper .dialog-window").html(output);
-    $("#dialog-wrapper").addClass("active");
-
-
-    this.successHandler = additional.success;
-
-    this.bind();
-
-
-    if(additional.afterShow){
-        additional.afterShow.call(this,$("#dialog-wrapper .dialog-window"));
-    }
-
-};
-
-formDialog.prototype = {
-
-    bind : function(){
-
-        var self = this;
-
-        $("#dialog-wrapper .dialog-window form").submit(function(e){
-            e.preventDefault();
-            self.submited($(this));
-            return false;
-        });
-
-    },
-
-    submited : function($form){
-
-        var data = {};
-        jQuery.each( $form.serializeArray() , function( i, field ) {
-          data[field.name] = field.value;
-        });
-
-        if(this.successHandler){
-            this.successHandler.call(this,data,$form);
-        }
-
-    },
-
-    close : function(){
-        $("#dialog-wrapper").removeClass("active");
-    }
-
-};
-
 var JzApp = function(){};
 
-JzApp.prototype.start = function(grid,wrapper){
+JzApp.prototype.start = function(song,wrapper){
 
-    this.grid = grid;
+    this.grid = song.grid;
+    this.song = song;
     this.$wrapper = $(wrapper);
 
-    this.redraw(grid);
+    this.redraw();
 
-    grid.bind("chordUpdated",function(c){
+    this.grid.bind("chordUpdated",function(c){
         var coord = c.coordinate();
         var output = ich.chord(c);
         $( ".jz-chord-li[coordinate='" + c.coordinateStr() + "']" , this.wrapper).html(output);
@@ -87,10 +23,10 @@ JzApp.prototype.start = function(grid,wrapper){
 JzApp.prototype.redraw = function(entity){
 
     if(!entity)
-        entity = this.grid;
+        entity = this.song;
 
-    if(entity instanceof Jazzy.Entity.Grid){
-        var output = ich.grid(entity);
+    if(entity instanceof Jazzy.Entity.Song){
+        var output = ich.song(entity);
         this.$wrapper.html(output);
         this.bind(this.$wrapper);
     }

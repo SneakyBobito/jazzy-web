@@ -163,14 +163,14 @@ JzContext.prototype = {
 
 					var handler = function(){
 						data.cell.pattern = pattern;
-						self.JzApp.redraw(data.grid);
+						self.JzApp.redraw();
 					};
 
 					// history
 					self.JzApp.JzHistory.add(
 						function(){
 							data.cell.pattern = currentPattern;
-							self.JzApp.redraw(data.grid);
+							self.JzApp.redraw();
 						},
 						handler
 					);
