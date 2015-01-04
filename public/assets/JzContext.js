@@ -30,7 +30,7 @@ JzContext.prototype = {
 		this.__prepareMenu($menu,coord,grid,line,cell,chord);
 
 		// show the currently edited chord/cell/line/grid
-		if(inputData.chord){
+		if(typeof inputData.chord == "object"){
 			this.JzApp.getElementFromEntity(inputData.chord).addClass("context-menu-open");
 		}
 		if(inputData.cell){
@@ -49,7 +49,7 @@ JzContext.prototype = {
 		this.bindMenu($menu);
 
 		// autoselect chord name input
-		if(chord){
+		if(undefined !== chord){
 			$menu.find(".chord-name").focus().select();
 		}
 
@@ -57,21 +57,20 @@ JzContext.prototype = {
 
 	__prepareMenu : function($menu,coord,grid,line,cell,chord){
 
-		// hide all section and show only what we need
-		$menu.find(".main-section").hide();
+
 
 		// look for each section to show
-		if(chord){
-			$menu.find(".chord-section").show();
+		if(undefined === chord){
+			$menu.find(".chord-section").remove();
 		}
-		if(cell){
-			$menu.find(".cell-section").show();
+		if(undefined === cell){
+			$menu.find(".cell-section").remove();
 		}
-		if(line){
-			$menu.find(".line-section").show();
+		if(undefined === line){
+			$menu.find(".line-section").remove();
 		}
-		if(grid){
-			$menu.find(".grid-section").show();
+		if(undefined === grid){
+			$menu.find(".grid-section").remove();
 		}
 
 		// place the menu next to the mouse
@@ -116,32 +115,63 @@ JzContext.prototype = {
 	          data[field.name] = field.value;
 	        });
 
-	        if(data.chord !== chord.chord.name){
+			if(typeof chord == "object"){
+		        if(data.chord !== chord.chord.name){
 
-				var oldChord = chord.chord;
-	            var res = chord.update(data.chord);
+					var oldChord = chord.chord;
+		            var res = chord.update(data.chord);
 
-	            if(!res){
-	                alert("Chord not valid");
-	            }else{
-					// history
-					var newChord = chord.chord;
-					self.JzApp.JzHistory.add(
-						function(){
-							chord.chord = oldChord;
-							self.JzApp.redraw();
-						},
-						function(){
-							chord.chord = newChord;
-							self.JzApp.redraw();
-						}
-					);
+		            if(!res){
+		                alert("Chord not valid");
+		            }else{
+						// history
+						var newChord = chord.chord;
+						self.JzApp.JzHistory.add(
+							function(){
+								chord.chord = oldChord;
+								self.JzApp.redraw();
+							},
+							function(){
+								chord.chord = newChord;
+								self.JzApp.redraw();
+							}
+						);
 
-	                self.close();
-	            }
-	        }else{
-	            self.close();
-	        }
+		                self.close();
+		            }
+		        }else{
+		            self.close();
+		        }
+			}else if(typeof chord == "number"){
+
+				var chordIndex = chord;
+				var newChord = Jazzy.createEntity("chord",{
+					"chord":data.chord
+				});
+
+				var cell = $menu.data("jzMenu").cell;
+
+				var handler = function(){
+					cell.addChord(newChord,chordIndex);
+					self.JzApp.redraw();
+				};
+
+				// execute
+				handler();
+
+				// history
+				self.JzApp.JzHistory.add(
+					function(){
+						cell.removeChord(newChord);
+						self.JzApp.redraw();
+					},
+					handler
+				);
+
+
+				self.close();
+
+			}
 
 	        return false;
 	    });

@@ -119,12 +119,17 @@
 
     <div class="jz-cell">
         <ul class="jz-chord-list jz-chord-count-{{pattern}}">
-            {{#chords}}
-            <li class="jz-chord-li" coordinate={{ coordinateStr }}>{{> chord}}</li>
-            {{/chords}}
-            {{^chords}}
-            <li class="jz-chord-li"><div class="jz-chord">%</div></li>
-            {{/chords}}
+            {{#view_patternChords}}
+                {{#chord}}
+                <li class="jz-chord-li" coordinate={{ coordinateStr }}>{{> chord}}</li>
+                {{/chord}}
+                {{^chord}}
+                <li class="jz-chord-li jz-chord-ghost"></li>
+                {{/chord}}
+            {{/view_patternChords}}
+            {{^view_patternChords}}
+            <li class="jz-chord-li jz-chord-repeat"><div class="jz-chord">%</div></li>
+            {{/view_patternChords}}
         </ul>
     </div>
 

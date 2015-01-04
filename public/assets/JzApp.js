@@ -40,20 +40,36 @@ JzApp.prototype.bind = function(section){
 
     var self = this;
 
+    ////////////////////
+    // SHOW CONTEXT MENU
+    //
     $(".jz-chord-li",section).click(function(e){
-        var chord = self.getEntityFromElement($(this));
 
         var $cell = $(this).closest(".jz-cell-li");
 
-        var cellOffset = $cell.offset();
+        if($(this).hasClass("jz-chord-repeat")){
+            var chord = undefined;
+            var cell  = self.getEntityFromElement($cell);
+        }else if($(this).hasClass("jz-chord-ghost")){
+            var chord = $(this).index();
+            var cell  = self.getEntityFromElement($cell);
+        }else{
+            var chord = self.getEntityFromElement($(this));
+            var cell  = chord.parent("cell");
+        }
 
+
+        var line  = cell.parent("line");
+        var grid  = line.parent("grid");
+
+        var cellOffset = $cell.offset();
         var windowCoordinates = {x : cellOffset.left, y : cellOffset.top + $cell.height() + 10};
         // todo : verify coordinates
 
         self.JzContext.show(windowCoordinates,{
-            grid : chord.parent("grid"),
-            line : chord.parent("line"),
-            cell : chord.parent("cell"),
+            grid : grid,
+            line : line,
+            cell : cell,
             chord: chord
         });
 
@@ -140,6 +156,7 @@ JzApp.prototype.bind = function(section){
 };
 
 JzApp.prototype.getEntityFromElement = function($el){
+
 
     var c = $el.attr("coordinate").split('-');
 

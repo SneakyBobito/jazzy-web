@@ -64,6 +64,7 @@
 .jz-cell-li.ui-sortable-helper,
 .jz-cell-li.ui-sortable-placeholder+.jz-cell-li,
 .jz-cell-li.ui-state-highlight+.jz-cell-li,
+.jz-cell-li.ui-state-highlight+.ui-sortable-helper+.ui-sortable-handle,
 .jz-cell-li.ui-sortable-helper:first-child+.jz-cell-li.ui-sortable-handle
 {
     border-left-width: 1px;
